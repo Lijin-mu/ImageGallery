@@ -6,6 +6,17 @@
 
 get_header(); ?>
 
+<!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-bg"></div>
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Winter Moments</h1>
+            <p>A Collection of Frozen Beauty</p>
+        </div>
+    </section>
+
 <div class="gallery-page-wrapper">
 
     <div class="gallery-wrapper">
@@ -38,43 +49,6 @@ get_header(); ?>
         */
         ?>
 
-
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-bg"></div>
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1>Winter Moments</h1>
-            <p>A Collection of Frozen Beauty</p>
-        </div>
-    </section>
-
-    <!-- Filter Section -->
-    <section class="filter-container">
-        <div class="filter-buttons">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="landscapes">Landscapes</button>
-            <button class="filter-btn" data-filter="decorations">Decorations</button>
-            <button class="filter-btn" data-filter="food">Food</button>
-            <button class="filter-btn" data-filter="family">Family</button>
-        </div>
-    </section>
-
- <!-- About Section -->
-        <section class="about-section" id="about">
-        <h2>About</h2>
-        <div class="about-intro">
-            <div class="about-text">
-                <p>Capturing the serene beauty of winter landscapes has been my passion for over a decade. Each photograph tells a story of frozen moments, quiet snowfalls, and the peaceful stillness that blankets the world during the coldest months.</p>
-                <p>From the majestic mountain peaks covered in pristine snow to intimate family moments wrapped in winter warmth, my work celebrates the unique beauty that this season brings. Through my lens, I aim to preserve the fleeting magic of winter—the way light dances on ice crystals, the cozy comfort of holiday gatherings, and the breathtaking landscapes transformed by snow.</p>
-                <p>My photography has been featured in various publications and exhibitions, and I continue to explore new ways to capture the essence of winter's wonder.</p>
-            </div>
-            <div>
-            </div>
-        </div>
-    </section>
 
     <!-- Gallery Section -->
     <section class="gallery-container" id="gallery">
@@ -619,6 +593,32 @@ get_header(); ?>
                         <div class="stat-label">Photos Captured</div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="contact-section" id="contact">
+        <h2>Get in Touch</h2>
+        <p>Let's work together to capture your winter moments</p>
+
+        <div class="contact-form-wrapper">
+            <?php echo do_shortcode('[contact-form-7 id="fe951f9" title="Contact form 1"]'); ?>
+        </div>
+
+        <div class="contact-info">
+            <div class="contact-item">
+                <span>📧</span>
+                <a href="mailto:hello@winterportfolio.com">hello@winterportfolio.com</a>
+            </div>
+            <div class="contact-item">
+                <span>📱</span>
+                <a href="tel:+15551234567">+1 (555) 123-4567</a>
+            </div>
+            <div class="contact-item">
+                <span>📍</span>
+                <a href="https://www.google.com/maps/search/?api=1&amp;query=Colorado+USA" target="_blank">Colorado, USA</a>
             </div>
         </div>
     </section>
