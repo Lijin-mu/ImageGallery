@@ -1,0 +1,222 @@
+/**
+ * Homepage Custom Fields - Admin Styles
+ */
+.ig-custom-fields p {
+    margin-bottom: 1em;
+}
+.ig-custom-fields label {
+    display: block;
+    margin-bottom: 4px;
+}
+.ig-image-preview img,
+.ig-image-preview-small img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: block;
+}
+
+/* Image upload wrap - toggle Add Media vs Preview */
+.ig-image-upload-wrap {
+    margin-top: 4px;
+}
+.ig-image-preview-wrap {
+    display: inline-block;
+    position: relative;
+    margin-top: 8px;
+    overflow: hidden;
+    border-radius: 4px;
+}
+.ig-image-preview-wrap .ig-image-preview,
+.ig-image-preview-wrap .ig-image-preview img {
+    display: block;
+    width: 300px;
+    height: auto;
+}
+.ig-image-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0.9;
+}
+.ig-image-actions .dashicons {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+}
+.ig-image-actions a[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    margin-bottom: 4px;
+    background: #1d2327;
+    color: #fff;
+    font-size: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    white-space: nowrap;
+    border-radius: 3px;
+    z-index: 10;
+    pointer-events: none;
+}
+.ig-image-actions .dashicons:hover {
+    color: #72aee6;
+}
+.ig-image-actions .dashicons-trash:hover {
+    color: #f86368;
+}
+
+/* Small preview (gallery image rows) - icons over image */
+.ig-image-upload-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.ig-preview-small {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 4px;
+}
+.ig-preview-small .ig-image-preview-small {
+    display: block;
+}
+.ig-preview-small .ig-image-preview-small img {
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.ig-preview-small .ig-image-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px;
+    background: rgba(0, 0, 0, 0.6);
+    margin-top: 0;
+}
+.ig-preview-small .ig-image-actions .dashicons {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    position: relative;
+}
+.ig-preview-small .ig-image-actions a[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 3px 6px;
+    margin-bottom: 2px;
+    background: #1d2327;
+    color: #fff;
+    font-size: 11px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    white-space: nowrap;
+    border-radius: 3px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Gallery Section Repeater */
+.ig-gallery-repeater .description {
+    margin-bottom: 1em;
+    color: #646970;
+}
+.ig-gallery-section-row {
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    background: #fff;
+}
+.ig-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.ig-section-header h4 {
+    margin: 0;
+    font-size: 14px;
+}
+.ig-section-fields {
+    padding-left: 0;
+}
+.ig-section-fields > p {
+    margin-bottom: 12px;
+}
+
+/* Images Repeater (nested) */
+.ig-images-repeater {
+    margin-top: 12px;
+    padding: 12px;
+    background: #f6f7f7;
+    border-radius: 4px;
+}
+.ig-images-repeater > label {
+    display: block;
+    margin-bottom: 8px;
+}
+.ig-images-list {
+    margin-bottom: 8px;
+}
+.ig-image-row {
+    margin-bottom: 8px;
+}
+.ig-image-row-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.ig-image-upload {
+    flex-shrink: 0;
+}
+.ig-image-upload .ig-add-media-wrap .button {
+    margin-bottom: 0;
+}
+.ig-image-fields {
+    flex: 1;
+    min-width: 0;
+}
+.ig-image-fields input,
+.ig-image-fields textarea {
+    margin-bottom: 4px;
+}
+.ig-image-fields input:last-child,
+.ig-image-fields textarea:last-child {
+    margin-bottom: 0;
+}
+.ig-image-fields textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+.ig-remove-image-row {
+    flex-shrink: 0;
+    padding: 2px 8px !important;
+    min-height: 28px;
+    font-size: 18px;
+    line-height: 1;
+}

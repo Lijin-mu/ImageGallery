@@ -8,9 +8,11 @@ Image Gallery
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const navLinks = document.getElementById('navLinks');
 
-mobileMenuBtn.addEventListener('click', () => {
-   navLinks.classList.toggle('active');
-});
+if (mobileMenuBtn && navLinks) {
+   mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+   });
+}
 
 // Smooth scroll for navigation links
 document.querySelectorAll('.nav-links a').forEach(link => {
@@ -32,14 +34,15 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 });
 
 // Logo click handler
-document.querySelector('.logo').addEventListener('click', (e) => {
-   e.preventDefault();
-   document.querySelector('#home').scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
+const logo = document.querySelector('.logo');
+if (logo) {
+   logo.addEventListener('click', (e) => {
+      e.preventDefault();
+      const home = document.querySelector('#home');
+      if (home) home.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (navLinks) navLinks.classList.remove('active');
    });
-   navLinks.classList.remove('active');
-});
+}
 
 // Scroll spy for active menu states
 const sections = document.querySelectorAll('section[id]');
@@ -147,26 +150,29 @@ if(contactForm){
       // --------------------
       // LIGHTBOX FUNCTIONALITY
       // --------------------
-      if (lightbox) {
+      if (lightbox && lightboxImage && lightboxTitle && lightboxCategory) {
 
          galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
+            item.addEventListener('click', (e) => {
+               e.preventDefault();
                updateVisibleImages();
-               currentImageIndex = visibleImages.indexOf(item);
+               const idx = visibleImages.indexOf(item);
+               currentImageIndex = idx >= 0 ? idx : 0;
                openLightbox(item);
             });
          });
 
          function openLightbox(item) {
             const img = item.querySelector('img');
+            if (!img) return;
             const title = item.querySelector('.gallery-title');
             const category = item.querySelector('.gallery-category');
 
             lightboxImage.src = img.src;
             lightboxImage.alt = img.alt;
 
-            if (title) lightboxTitle.textContent = title.textContent;
-            if (category) lightboxCategory.textContent = category.textContent;
+            lightboxTitle.textContent = title ? title.textContent : '';
+            lightboxCategory.textContent = category ? category.textContent : '';
 
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -177,10 +183,17 @@ if(contactForm){
             document.body.style.overflow = 'auto';
          }
 
-         closeLightbox?.addEventListener('click', close);
+         closeLightbox?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            close();
+         });
 
          lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) close();
+         });
+
+         lightbox.querySelector('.lightbox-content')?.addEventListener('click', (e) => {
+            e.stopPropagation();
          });
 
          prevImage?.addEventListener('click', () => {
