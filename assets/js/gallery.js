@@ -17,19 +17,26 @@ if (mobileMenuBtn && navLinks) {
 // Smooth scroll for navigation links
 document.querySelectorAll('.nav-links a').forEach(link => {
    link.addEventListener('click', (e) => {
-      e.preventDefault();
+
       const targetId = link.getAttribute('href');
-      const targetSection = document.querySelector(targetId);
 
-      if (targetSection) {
-         targetSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-         });
+      // Only apply smooth scroll if it is an anchor link
+      if (targetId.startsWith("#")) {
 
-         // Close mobile menu if open
-         navLinks.classList.remove('active');
+         e.preventDefault();
+
+         const targetSection = document.querySelector(targetId);
+
+         if (targetSection) {
+            targetSection.scrollIntoView({
+               behavior: 'smooth',
+               block: 'start'
+            });
+
+            navLinks.classList.remove('active');
+         }
       }
+
    });
 });
 
