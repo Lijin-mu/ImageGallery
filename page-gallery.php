@@ -61,9 +61,32 @@ $grid_classes = [
 
 <div class="gallery-page-wrapper">
     <div class="gallery-wrapper">
+        
+        <?php
+        // Section 2: About
+        if ($about_title || $about_description || $about_image_url) :
+        ?>
+        <section class="about-section" id="about">
+            <?php if ($about_title) : ?><h2><?php echo esc_html($about_title); ?></h2><?php endif; ?>
+            <div class="about-content">
+                <?php if ($about_description) : ?>
+                <div class="about-text">
+                    <?php echo wp_kses_post($about_description); ?>
+                </div>
+                <?php endif; ?>
+                <?php if ($about_image_url) : ?>
+                <div>
+                    <div class="about-image">
+                        <img src="<?php echo esc_url($about_image_url); ?>" alt="<?php echo esc_attr($about_title); ?>">
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
+        </section>
+        <?php endif; ?>
 
         <?php
-        // Section 2: Gallery Sections (repeater)
+        // Section 3: Gallery Sections (repeater)
         foreach ($gallery_sections as $idx => $section) :
             $images_per_row = isset($section['images_per_row']) ? (int) $section['images_per_row'] : 3;
             $section_title = isset($section['title']) ? $section['title'] : '';
@@ -123,29 +146,6 @@ $grid_classes = [
             <?php endif; ?>
         </section>
         <?php endforeach; ?>
-
-        <?php
-        // Section 3: About
-        if ($about_title || $about_description || $about_image_url) :
-        ?>
-        <section class="about-section" id="about">
-            <?php if ($about_title) : ?><h2><?php echo esc_html($about_title); ?></h2><?php endif; ?>
-            <div class="about-content">
-                <?php if ($about_description) : ?>
-                <div class="about-text">
-                    <?php echo wp_kses_post($about_description); ?>
-                </div>
-                <?php endif; ?>
-                <?php if ($about_image_url) : ?>
-                <div>
-                    <div class="about-image">
-                        <img src="<?php echo esc_url($about_image_url); ?>" alt="<?php echo esc_attr($about_title); ?>">
-                    </div>
-                </div>
-                <?php endif; ?>
-            </div>
-        </section>
-        <?php endif; ?>
 
         <section class="contact-section" id="contact">
             <h2>Get in Touch</h2>
