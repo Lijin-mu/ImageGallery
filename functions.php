@@ -83,3 +83,8 @@ add_action('wp_enqueue_scripts', 'imagegallery_dequeue_simply_lightbox', 20);
  * Load Homepage Custom Fields
  */
 require_once get_template_directory() . '/inc/homepage-custom-fields.php';
+
+/**
+ * Load Theme Options
+ */
+require_once get_template_directory() . '/inc/theme-options.php';

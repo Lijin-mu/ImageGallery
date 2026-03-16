@@ -47,16 +47,20 @@ $grid_classes = [
         <?php if ($banner_image_url) : ?>
         <link rel="preload" as="image" href="<?php echo esc_url($banner_image_url); ?>" fetchpriority="high">
         <div class="hero-bg" style="background-image: url('<?php echo esc_url($banner_image_url); ?>'); animation-delay: 0s;">
-            <img src="<?php echo esc_url($banner_image_url); ?>" alt="<?php echo esc_attr($banner_title ?: 'Banner'); ?>" loading="eager" decoding="async" style="display:none;">
+            <img src="<?php echo esc_url($banner_image_url); ?>" alt="<?php echo esc_attr($banner_title ?: 'Banner'); ?>" loading="eager"
+                decoding="async" style="display:none;">
         </div>
         <div class="hero-bg" style="background-image: url('<?php echo esc_url($banner_image_url); ?>'); animation-delay: 6s;">
-            <img src="<?php echo esc_url($banner_image_url); ?>" alt="<?php echo esc_attr($banner_title ?: 'Banner'); ?>" loading="lazy" decoding="async" style="display:none;">
+            <img src="<?php echo esc_url($banner_image_url); ?>" alt="<?php echo esc_attr($banner_title ?: 'Banner'); ?>" loading="lazy"
+                decoding="async" style="display:none;">
         </div>
         <div class="hero-bg" style="background-image: url('<?php echo esc_url($banner_image_url); ?>'); animation-delay: 12s;">
-            <img src="<?php echo esc_url($banner_image_url); ?>" alt="<?php echo esc_attr($banner_title ?: 'Banner'); ?>" loading="lazy" decoding="async" style="display:none;">
+            <img src="<?php echo esc_url($banner_image_url); ?>" alt="<?php echo esc_attr($banner_title ?: 'Banner'); ?>" loading="lazy"
+                decoding="async" style="display:none;">
         </div>
         <?php else : ?>
-        <link rel="preload" as="image" href="https://www.ideas-to-images.online/wp-content/uploads/2026/03/photo-1491002052546-bf38f186af56.jpeg" fetchpriority="high">
+        <link rel="preload" as="image" href="https://www.ideas-to-images.online/wp-content/uploads/2026/03/photo-1491002052546-bf38f186af56.jpeg"
+            fetchpriority="high">
         <div class="hero-bg"></div>
         <div class="hero-bg"></div>
         <div class="hero-bg"></div>
@@ -175,27 +179,43 @@ $grid_classes = [
                     </section>
                     <?php endforeach; ?>
 
+                    <?php
+                    $theme_opts = ig_get_theme_options();
+                    $contact_title = $theme_opts['title'] ?: __('Get in Touch', 'imagegallery');
+                    $contact_desc = $theme_opts['short_description'] ?: __("Let's work together to capture your winter moments", 'imagegallery');
+                    $cf7_id = (int) $theme_opts['cf7_form_id'];
+                    ?>
                     <section class="contact-section" id="contact">
-                        <h2>Get in Touch</h2>
-                        <p>Let's work together to capture your winter moments</p>
+                        <h2><?php echo esc_html($contact_title); ?></h2>
+                        <p><?php echo esc_html($contact_desc); ?></p>
 
                         <div class="contact-form-wrapper">
-                            <?php echo do_shortcode('[contact-form-7 id="fe951f9" title="Contact form 1"]'); ?>
+                            <?php
+                            if ($cf7_id) {
+                                echo do_shortcode('[contact-form-7 id="' . esc_attr($cf7_id) . '"]');
+                            }
+                            ?>
                         </div>
 
                         <div class="contact-info">
+                            <?php if (!empty($theme_opts['contact_email'])) : ?>
                             <div class="contact-item">
                                 <span>📧</span>
-                                <a href="mailto:hello@winterportfolio.com">hello@winterportfolio.com</a>
+                                <a href="mailto:<?php echo esc_attr($theme_opts['contact_email']); ?>"><?php echo esc_html($theme_opts['contact_email']); ?></a>
                             </div>
+                            <?php endif; ?>
+                            <?php if (!empty($theme_opts['contact_phone'])) : ?>
                             <div class="contact-item">
                                 <span>📱</span>
-                                <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                                <a href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $theme_opts['contact_phone'])); ?>"><?php echo esc_html($theme_opts['contact_phone']); ?></a>
                             </div>
+                            <?php endif; ?>
+                            <?php if (!empty($theme_opts['contact_location'])) : ?>
                             <div class="contact-item">
                                 <span>📍</span>
-                                <a href="https://www.google.com/maps/search/?api=1&amp;query=Colorado+USA" target="_blank">Colorado, USA</a>
+                                <span><?php echo esc_html($theme_opts['contact_location']); ?></span>
                             </div>
+                            <?php endif; ?>
                         </div>
                     </section>
 
