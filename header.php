@@ -14,11 +14,11 @@
 <body <?php body_class(); ?>>
 
     <header>
-        <h1 class="logo-text-header">
+        <div class="logo-text-header">
             <a href="<?php echo esc_url(home_url('/')); ?>">
                 <?php bloginfo('name'); ?>
             </a>
-        </h1>
+        </div>
 
         <nav>
             <div class="nav-container">

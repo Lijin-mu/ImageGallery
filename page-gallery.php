@@ -42,136 +42,164 @@ $grid_classes = [
 ];
 ?>
 
-<!-- Section 1: Banner -->
-<section class="hero" id="home">
-    <?php if ($banner_image_url) : ?>
-        <div class="hero-bg" style="background-image: url('<?php echo esc_url($banner_image_url); ?>'); animation-delay: 0s;"></div>
-        <div class="hero-bg" style="background-image: url('<?php echo esc_url($banner_image_url); ?>'); animation-delay: 6s;"></div>
-        <div class="hero-bg" style="background-image: url('<?php echo esc_url($banner_image_url); ?>'); animation-delay: 12s;"></div>
-    <?php else : ?>
+    <!-- Section 1: Banner -->
+    <section class="hero" id="home">
+        <?php if ($banner_image_url) : ?>
+        <link rel="preload" as="image" href="<?php echo esc_url($banner_image_url); ?>" fetchpriority="high">
+        <div class="hero-bg" style="background-image: url('<?php echo esc_url($banner_image_url); ?>'); animation-delay: 0s;">
+            <img src="<?php echo esc_url($banner_image_url); ?>" alt="<?php echo esc_attr($banner_title ?: 'Banner'); ?>" loading="eager" decoding="async" style="display:none;">
+        </div>
+        <div class="hero-bg" style="background-image: url('<?php echo esc_url($banner_image_url); ?>'); animation-delay: 6s;">
+            <img src="<?php echo esc_url($banner_image_url); ?>" alt="<?php echo esc_attr($banner_title ?: 'Banner'); ?>" loading="lazy" decoding="async" style="display:none;">
+        </div>
+        <div class="hero-bg" style="background-image: url('<?php echo esc_url($banner_image_url); ?>'); animation-delay: 12s;">
+            <img src="<?php echo esc_url($banner_image_url); ?>" alt="<?php echo esc_attr($banner_title ?: 'Banner'); ?>" loading="lazy" decoding="async" style="display:none;">
+        </div>
+        <?php else : ?>
+        <link rel="preload" as="image" href="https://www.ideas-to-images.online/wp-content/uploads/2026/03/photo-1491002052546-bf38f186af56.jpeg" fetchpriority="high">
         <div class="hero-bg"></div>
         <div class="hero-bg"></div>
         <div class="hero-bg"></div>
-    <?php endif; ?>
-    <div class="hero-content">
-        <h1><?php echo esc_html($banner_title ?: 'Winter Moments'); ?></h1>
-        <p><?php echo esc_html($banner_bottom_line ?: 'A Collection of Frozen Beauty'); ?></p>
-    </div>
-</section>
+        <?php endif; ?>
+        <div class="hero-content">
+            <h1>
+                <?php echo esc_html($banner_title ?: 'Winter Moments'); ?>
+            </h1>
+            <p>
+                <?php echo esc_html($banner_bottom_line ?: 'A Collection of Frozen Beauty'); ?>
+            </p>
+        </div>
+    </section>
 
-<div class="gallery-page-wrapper">
-    <div class="gallery-wrapper">
-        
-        <?php
+    <div class="gallery-page-wrapper">
+        <div class="gallery-wrapper">
+
+            <?php
         // Section 2: About
         if ($about_title || $about_description || $about_image_url) :
-        ?>
-        <section class="about-section" id="about">
-            <?php if ($about_title) : ?><h2><?php echo esc_html($about_title); ?></h2><?php endif; ?>
-            <div class="about-content">
-                <?php if ($about_description) : ?>
-                <div class="about-text">
-                    <?php echo wp_kses_post($about_description); ?>
-                </div>
-                <?php endif; ?>
-                <?php if ($about_image_url) : ?>
-                <div>
-                    <div class="about-image">
-                        <img src="<?php echo esc_url($about_image_url); ?>" alt="<?php echo esc_attr($about_title); ?>">
+            ?>
+                <section class="about-section" id="about">
+                    <?php if ($about_title) : ?>
+                    <h2>
+                        <?php echo esc_html($about_title); ?>
+                    </h2>
+                    <?php endif; ?>
+                    <div class="about-content">
+                        <?php if ($about_description) : ?>
+                        <div class="about-text">
+                            <?php echo wp_kses_post($about_description); ?>
+                        </div>
+                        <?php endif; ?>
+                        <?php if ($about_image_url) : ?>
+                        <div>
+                            <div class="about-image">
+                                <img src="<?php echo esc_url($about_image_url); ?>" alt="<?php echo esc_attr($about_title); ?>" loading="lazy">
+                            </div>
+                        </div>
+                        <?php endif; ?>
                     </div>
-                </div>
+                </section>
                 <?php endif; ?>
-            </div>
-        </section>
-        <?php endif; ?>
 
-        <?php
-        // Section 3: Gallery Sections (repeater)
-        foreach ($gallery_sections as $idx => $section) :
-            $images_per_row = isset($section['images_per_row']) ? (int) $section['images_per_row'] : 3;
-            $section_title = isset($section['title']) ? $section['title'] : '';
-            $section_desc = isset($section['short_description']) ? $section['short_description'] : '';
-            $images = isset($section['images']) && is_array($section['images']) ? $section['images'] : [];
-            $images = array_filter($images, function ($img) {
-                return !empty($img['image']);
-            });
-            $grid_class = isset($grid_classes[$images_per_row]) ? $grid_classes[$images_per_row] : 'gallery-grid';
-        ?>
-        <section class="gallery-container" id="gallery-<?php echo esc_attr(sanitize_title($section_title) ?: 'gallery'); ?>">
-            <?php if ($section_title || $section_desc) : ?>
-            <div class="about-section about-section-inline">
-                <?php if ($section_title) : ?><h2><?php echo esc_html($section_title); ?></h2><?php endif; ?>
-                <?php if ($section_desc) : ?>
-                <div class="about-intro">
-                    <div class="about-text">
-                        <?php echo wp_kses_post($section_desc); ?>
-                    </div>
-                </div>
-                <?php endif; ?>
-            </div>
-            <?php endif; ?>
-
-            <?php if (!empty($images)) : ?>
-            <div class="<?php echo esc_attr($grid_class); ?>" id="gallery-grid-<?php echo esc_attr($idx); ?>">
-                <?php foreach ($images as $img) :
-                    $img_id = (int) $img['image'];
-                    $img_title = isset($img['title']) ? $img['title'] : '';
-                    $img_desc = isset($img['short_description']) ? $img['short_description'] : '';
-                    $img_src = $img_id ? wp_get_attachment_image_url($img_id, 'large') : '';
-                    if (!$img_src) continue;
+                <?php
+            // Section 3: Gallery Sections (repeater)
+            foreach ($gallery_sections as $idx => $section) :
+                $images_per_row = isset($section['images_per_row']) ? (int) $section['images_per_row'] : 3;
+                $section_title = isset($section['title']) ? $section['title'] : '';
+                $section_desc = isset($section['short_description']) ? $section['short_description'] : '';
+                $images = isset($section['images']) && is_array($section['images']) ? $section['images'] : [];
+                $images = array_filter($images, function ($img) {
+                    return !empty($img['image']);
+                });
+                $grid_class = isset($grid_classes[$images_per_row]) ? $grid_classes[$images_per_row] : 'gallery-grid';
                 ?>
-                <div class="gallery-item">
-                    <img src="<?php echo esc_url($img_src); ?>" alt="<?php echo esc_attr($img_title); ?>">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title"><?php echo esc_html($img_title); ?></h3>
-                        <?php if ($img_desc) : ?><p class="gallery-category"><?php echo nl2br(esc_html($img_desc)); ?></p><?php endif; ?>
-                    </div>
-                </div>
-                <?php endforeach; ?>
-            </div>
+                    <section class="gallery-container" id="gallery-<?php echo esc_attr(sanitize_title($section_title) ?: 'gallery'); ?>">
+                        <?php if ($section_title || $section_desc) : ?>
+                        <div class="about-section about-section-inline">
+                            <?php if ($section_title) : ?>
+                            <h2>
+                                <?php echo esc_html($section_title); ?>
+                            </h2>
+                            <?php endif; ?>
+                            <?php if ($section_desc) : ?>
+                            <div class="about-intro">
+                                <div class="about-text">
+                                    <?php echo wp_kses_post($section_desc); ?>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                        <?php endif; ?>
 
-            <!-- Lightbox -->
-            <div class="lightbox">
-                <button class="lightbox-close closeLightbox">×</button>
-                <button class="lightbox-nav lightbox-prev prevImage">‹</button>
-                <button class="lightbox-nav lightbox-next nextImage">›</button>
-                <div class="lightbox-content">
-                    <img class="lightboxImage" src="" alt="">
-                    <div class="lightbox-info">
-                        <h3 class="lightboxTitle"></h3>
-                        <span class="lightboxCategory"></span>
-                    </div>
-                </div>
-            </div>
-            <?php endif; ?>
-        </section>
-        <?php endforeach; ?>
+                        <?php if (!empty($images)) : ?>
+                        <div class="<?php echo esc_attr($grid_class); ?>" id="gallery-grid-<?php echo esc_attr($idx); ?>">
+                            <?php foreach ($images as $img) :
+                                $img_id = (int) $img['image'];
+                                $img_title = isset($img['title']) ? $img['title'] : '';
+                                $img_desc = isset($img['short_description']) ? $img['short_description'] : '';
+                                $img_src = $img_id ? wp_get_attachment_image_url($img_id, 'large') : '';
+                                if (!$img_src) {
+                                    continue;
+                                }
+                                ?>
+                            <div class="gallery-item">
+                                <img src="<?php echo esc_url($img_src); ?>" alt="<?php echo esc_attr($img_title); ?>" loading="lazy">
+                                <div class="gallery-overlay">
+                                    <h3 class="gallery-title">
+                                        <?php echo esc_html($img_title); ?>
+                                    </h3>
+                                    <?php if ($img_desc) : ?>
+                                    <p class="gallery-category">
+                                        <?php echo nl2br(esc_html($img_desc)); ?>
+                                    </p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
 
-        <section class="contact-section" id="contact">
-            <h2>Get in Touch</h2>
-            <p>Let's work together to capture your winter moments</p>
+                        <!-- Lightbox -->
+                        <div class="lightbox">
+                            <button class="lightbox-close closeLightbox">×</button>
+                            <button class="lightbox-nav lightbox-prev prevImage">‹</button>
+                            <button class="lightbox-nav lightbox-next nextImage">›</button>
+                            <div class="lightbox-content">
+                                <img class="lightboxImage" src="" alt="" loading="lazy">
+                                <div class="lightbox-info">
+                                    <h3 class="lightboxTitle"></h3>
+                                    <span class="lightboxCategory"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                    </section>
+                    <?php endforeach; ?>
 
-            <div class="contact-form-wrapper">
-                <?php echo do_shortcode('[contact-form-7 id="fe951f9" title="Contact form 1"]'); ?>
-            </div>
+                    <section class="contact-section" id="contact">
+                        <h2>Get in Touch</h2>
+                        <p>Let's work together to capture your winter moments</p>
 
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span>📧</span>
-                    <a href="mailto:hello@winterportfolio.com">hello@winterportfolio.com</a>
-                </div>
-                <div class="contact-item">
-                    <span>📱</span>
-                    <a href="tel:+15551234567">+1 (555) 123-4567</a>
-                </div>
-                <div class="contact-item">
-                    <span>📍</span>
-                    <a href="https://www.google.com/maps/search/?api=1&amp;query=Colorado+USA" target="_blank">Colorado, USA</a>
-                </div>
-            </div>
-        </section>
+                        <div class="contact-form-wrapper">
+                            <?php echo do_shortcode('[contact-form-7 id="fe951f9" title="Contact form 1"]'); ?>
+                        </div>
 
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <span>📧</span>
+                                <a href="mailto:hello@winterportfolio.com">hello@winterportfolio.com</a>
+                            </div>
+                            <div class="contact-item">
+                                <span>📱</span>
+                                <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                            </div>
+                            <div class="contact-item">
+                                <span>📍</span>
+                                <a href="https://www.google.com/maps/search/?api=1&amp;query=Colorado+USA" target="_blank">Colorado, USA</a>
+                            </div>
+                        </div>
+                    </section>
+
+        </div>
     </div>
-</div>
 
-<?php get_footer(); ?>
+    <?php get_footer(); ?>
