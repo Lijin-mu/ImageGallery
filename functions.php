@@ -85,6 +85,34 @@ add_action('wp_enqueue_scripts', 'imagegallery_dequeue_simply_lightbox', 20);
 require_once get_template_directory() . '/inc/homepage-custom-fields.php';
 
 /**
+ * WPML: Prevent gallery custom fields from being copied between language versions.
+ * Each language (English/German) keeps its own independent content.
+ * Without this, WPML syncs from the default language (English) on every save,
+ * overwriting German content when saving either page.
+ */
+function imagegallery_wpml_preserve_custom_fields_per_language($copied_value, $post_id_from, $post_id_to, $meta_key, $args)
+{
+    $independent_fields = [
+        '_ig_banner_image',
+        '_ig_banner_title',
+        '_ig_banner_bottom_line',
+        '_ig_gallery_sections',
+        '_ig_about_title',
+        '_ig_about_description',
+        '_ig_about_image',
+    ];
+    if (!in_array($meta_key, $independent_fields, true)) {
+        return $copied_value;
+    }
+    // Return the target's existing value so it is preserved (no overwrite from source).
+    if (!empty($args['values_to']) && is_array($args['values_to'])) {
+        return maybe_unserialize($args['values_to'][0]);
+    }
+    return $copied_value;
+}
+add_filter('wpml_sync_custom_field_copied_value', 'imagegallery_wpml_preserve_custom_fields_per_language', 10, 5);
+
+/**
  * Load Theme Options
  */
 require_once get_template_directory() . '/inc/theme-options.php';

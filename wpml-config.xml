@@ -2,4 +2,15 @@
 <wpml-config>
 	<!-- Theme options use per-language storage. Switch admin language in WPML
 	     then edit Appearance → Theme Options to save different values per language. -->
+
+	<!-- Gallery page custom fields: each language has its own content (no sync/copy between translations) -->
+	<custom-fields>
+		<custom-field action="translate">_ig_banner_image</custom-field>
+		<custom-field action="translate">_ig_banner_title</custom-field>
+		<custom-field action="translate">_ig_banner_bottom_line</custom-field>
+		<custom-field action="translate">_ig_gallery_sections</custom-field>
+		<custom-field action="translate">_ig_about_title</custom-field>
+		<custom-field action="translate">_ig_about_description</custom-field>
+		<custom-field action="translate">_ig_about_image</custom-field>
+	</custom-fields>
 </wpml-config>
